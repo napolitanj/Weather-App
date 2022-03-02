@@ -7,6 +7,14 @@ A simple weather app made according to the standards set by the project in The O
 My goal with this project is to demonstrate proficiency with callbacks, API requests, and promises, as well as an understanding of asynchornous javascript.
 
 -----------
+Version 0.2
+-----------
+
+Currently cannot test interface as too many API requests is blocking data, however...
+
+The daily weather items should now render as well as refresh when the location is changed.
+
+-----------
 Version 0.1
 -----------
 

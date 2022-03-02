@@ -5,7 +5,7 @@ function currentIcon(icon) {
 
 function currentTemp(temp) {
     const currentTemp = document.getElementById("currentTemp");
-    currentTemp.textContent = (((temp-273.15)*1.8)+32).toPrecision(3);
+    currentTemp.textContent = convertToF(temp);
 }
 
 function currentPrecip(precip) {
@@ -21,6 +21,11 @@ function currentHumid(humid) {
 function currentWind(windSpeed, windDirection) {
     const currentWind = document.getElementById("currentWind");
     currentWind.textContent = "Wind: " + Math.round(windSpeed) + "mph " + degToCompass(windDirection);
+}
+
+//Converts Kelvin to F
+function convertToF(temp) {
+    return (((temp-273.15)*1.8)+32).toPrecision(3)
 }
 
 //Converts 0-360 degress to cardinal direction
@@ -55,19 +60,24 @@ function search() {
     return searchBar.value;
 }
 
-function renderChartObject(day,temp,windSpeed,windDirection,icon) {
+function renderChartObject(day,date,temp,windSpeed,windDirection,icon) {
     const container = document.createElement("div");
-    const header = document.createElement("p");
+    const title = document.createElement("h3");
+    const dateMonth = document.createElement("p")
     const temperature = document.createElement("p");
     const wind = document.createElement("p")
     const symbol = document.createElement("img")
 
-    header.textContent = day;
-    temperature.textContent = temp;
-    header.textContent = windSpeed + " " + windDirection;
+    container.classList.add("weatherItem")
+
+    title.textContent = day;
+    dateMonth.textContent = date;
+    temperature.textContent = "Temp: " + convertToF(temp);
+    wind.textContent = "Wind: " + Math.round(windSpeed) + "mph " + degToCompass(windDirection);
     symbol.src = icon;
 
-    container.appendChild(header);
+    container.appendChild(title);
+    container.appendChild(dateMonth);
     container.appendChild(temperature);
     container.appendChild(wind);
     container.appendChild(symbol);

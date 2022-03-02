@@ -6,7 +6,9 @@ body {
     display:flex;
     flex-direction:row;
     justify-content:space-around;
-    margin:10px;
+    padding:10px;
+    color:white;
+    background-color:blue;
 }
 
 .currentWeather {
@@ -40,6 +42,20 @@ body {
 }
 
 .weatherChart {
-    background-color:grey;
-    height:300px;
+    background-color:skyblue;
+    height:auto;
+    padding:30px;
+
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.weatherItem {
+    border:solid 2px black;
+    background-color:lightblue;
+    display:flex;
+    flex-direction:column;
+    height:350px;
+    padding:10px;
 }
