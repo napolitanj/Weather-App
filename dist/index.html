@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Weather App</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="main.js" defer></script>
+    </head>
+    <body>
+        <div class="topBanner">
+            <div class="currentWeather">
+                <img class="currentIcon" id="currentIcon">
+                <div class="bannerTemp">
+                    <p class="currentTemp" id="currentTemp"></p>
+                    <p>F/C</p>
+                </div>
+            </div>
+            <div class="currentData">
+                <p id="currentPrecip"></p>
+                <p id="currentHumid"></p>
+                <p id="currentWind"></p>
+            </div>
+            <div class="sunAndMoon">
+                <p id="sunrise"></p>
+                <p id="sunset"></p>
+            </div>
+            <div class="location">
+                <p id="location"></p>
+                <p id="time">Time</p>
+                <input type="text" id="search">
+                <button id="searchButton">Go</button>
+            </div>
+        </div>
+        <div class="weatherChart" id="weatherChart">
+        </div>
+    </body>
+</html>

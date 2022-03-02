@@ -1,0 +1,45 @@
+body {
+    margin:0;
+}
+
+.topBanner {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    margin:10px;
+}
+
+.currentWeather {
+    display:flex;
+    flex-direction:row;
+}
+
+.currentImage {
+    height:100px;
+    width:auto;
+}
+
+.currentTemp {
+    font-size:34px;
+}
+
+.bannerTemp {
+    display:flex;
+    flex-direction:row;
+    gap:5px;
+}
+
+.sunAndMoon {
+    display:flex;
+    flex-direction:column;
+}
+
+.location {
+    display:flex;
+    flex-direction:column;
+}
+
+.weatherChart {
+    background-color:grey;
+    height:300px;
+}
