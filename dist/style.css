@@ -9,6 +9,7 @@ body {
     padding:10px;
     font-weight:bold;
     color:white;
+    text-shadow:2px 1px black;
     background-color:#6C5B7B;
 }
 
@@ -18,7 +19,7 @@ body {
 }
 
 .currentImage {
-    height:150px;
+    height:100px;
     width:auto;
 }
 
@@ -41,6 +42,7 @@ body {
     display:flex;
     flex-direction:column;
     border:5px #F67280 solid;
+    border-radius:5px;
     padding:10px;
     background-color:#355C7D;
     box-shadow:3px 3px 3px black;
@@ -48,15 +50,19 @@ body {
 
 #search {
     border-radius:15px;
+    border:1px solid black;
+    text-align:center;
+    font-weight:bold;
     height:30px;
-    box-shadow:3px 3px 3px;
+    box-shadow:2px 2px 2px;
     margin-bottom:10px;
+    background-color:#F8B195;
 }
 
 #searchButton {
     border-radius:15px;
     height:30px;
-    box-shadow:3px 3px 3px;
+    box-shadow:2px 2px 2px;
 }
 
 .weatherChart {
@@ -67,12 +73,17 @@ body {
     display:flex;
     gap:20px;
     flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
 }
 
 .weatherItem {
     border:solid 5px #F67280;
     background-color:#F8B195;
     color:#355C7D;
+    border-radius:5px;
+    box-shadow: 2px 2px 2px black;
+    font-weight:bold;
     display:inline;
     height:auto;
     padding-left:10px;

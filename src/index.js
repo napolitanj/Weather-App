@@ -1,4 +1,4 @@
-import {fromUnixTime} from 'date-fns'
+import {fromUnixTime, format} from 'date-fns'
 import weatherAPIData from "./weatherapi"
 import {currentIcon, currentTemp, currentPrecip, currentHumid, currentWind, 
     sunrise, sunset, location, time, search, renderChartObject} from "./weatherdom";
@@ -93,13 +93,7 @@ function updateChartDaily() {
 //Formats time 
 function convertTime(unix) {
     let date = fromUnixTime(unix);
-    let hours = date.getHours()
-    //Modify for if minutes are less than 10.
-    if (hours < 12) {
-        return String(date.getHours()) + ":" + String(date.getMinutes() + " a.m.");
-    } else {
-    return String(date.getHours()-12) + ":" + String(date.getMinutes() + " p.m.");
-    }
+    return format(new Date(date), "K':'mm bbbb")
 }
 
 //Formats day of the week

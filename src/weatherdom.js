@@ -47,12 +47,12 @@ function sunset(time) {
 
 function location(currentLocation) {
     const location = document.getElementById("location");
-    location.textContent = currentLocation;
+    location.textContent = "Showing weather for " + currentLocation;
 }
 
 function time(currentTime) {
     const time = document.getElementById("time");
-    time.textContent = "Updated at " + currentTime;
+    time.textContent = "Last updated at: " + currentTime;
 } 
 
 function search() {
