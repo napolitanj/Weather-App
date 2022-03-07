@@ -3,7 +3,6 @@ import weatherAPIData from "./weatherapi"
 import {currentIcon, currentTemp, currentPrecip, currentHumid, currentWind, 
     sunrise, sunset, location, time, search, renderChartObject} from "./weatherdom";
 
-
 let weatherLocation = "chicago";
 const searchButton = document.getElementById("searchButton")
 searchButton.addEventListener("click", () => changeLocation());
@@ -76,8 +75,7 @@ function updateTime() {
 function changeLocation() {
         weatherLocation = search();
         clearChart();
-        updateHeader();
-        updateChartDaily();
+        updateWeather();
 }
 
 function updateChartDaily() {
@@ -159,10 +157,12 @@ function convertDate(unix) {
 //Clears the weather chart
 function clearChart() {
     const weatherChart = document.getElementById("weatherChart")
-    weatherChart.textContent = "";
+    while (weatherChart.firstChild) {
+        weatherChart.removeChild(weatherChart.firstChild);
+    }
 }
 
-function updateHeader() {
+function updateWeather() {
     updateIcon();
     updateTemp();
     updatePrecip();
@@ -176,4 +176,4 @@ function updateHeader() {
     updateChartDaily();
 }
 
-updateHeader();
+updateWeather();
