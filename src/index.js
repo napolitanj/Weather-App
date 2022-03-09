@@ -7,6 +7,9 @@ let weatherLocation = "chicago";
 const searchButton = document.getElementById("searchButton")
 searchButton.addEventListener("click", () => changeLocation());
 
+const tempSwitch = document.getElementById("tempSwitch")
+tempSwitch.addEventListener("change",() => changeUnit());
+
 //Updates current weather Icon
 function updateIcon() {
     weatherAPIData(weatherLocation).then(function(data){
@@ -15,10 +18,39 @@ function updateIcon() {
     })
 }
 
-//Updates current temperature to the header
-function updateTemp() {
+//Converts Kelvin to F
+function convertToF(temp) {
+    return (((temp-273.15)*1.8)+32).toPrecision(3)
+}
+
+//Converts Kelvin to C
+function convertToC(temp) {
+    return (temp-273.15).toPrecision(3)
+}
+
+//Toggles between F and C
+function changeUnit() {
+    tempSwitch.checked=!tempSwitch.checked
+    console.log(tempSwitch.checked)
+    if(tempSwitch.checked === true){
+        updateTempC()
+    } else {
+        tempSwitch.checked=false;
+        updateTempF();
+    }
+}
+
+//Updates current F temperature to the header
+function updateTempF() {
     weatherAPIData(weatherLocation).then(function(data){
-        currentTemp(data.current.temp)
+        currentTemp(convertToF(data.current.temp))
+    })
+}
+
+//Updates current C temperature to the header
+function updateTempC() {
+    weatherAPIData(weatherLocation).then(function(data){
+        currentTemp(convertToC(data.current.temp))
     })
 }
 
@@ -158,7 +190,12 @@ function clearChart() {
 
 function updateWeather() {
     updateIcon();
-    updateTemp();
+    if(tempSwitch.checked === true){
+        updateTempC()
+    } else {
+        tempSwitch.checked=false;
+        updateTempF();
+    }
     updatePrecip();
     updateHumid();
     updateWind();

@@ -1,3 +1,10 @@
+//Converts 0-360 degress to cardinal direction
+function degToCompass(num) {
+    var val = Math.floor((num / 22.5) + 0.5);
+    var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    return arr[(val % 16)];
+}
+
 function currentIcon(icon) {
     const currentIcon = document.getElementById("currentIcon");
     currentIcon.src = icon;
@@ -5,7 +12,7 @@ function currentIcon(icon) {
 
 function currentTemp(temp) {
     const currentTemp = document.getElementById("currentTemp");
-    currentTemp.textContent = convertToF(temp);
+    currentTemp.textContent = (temp);
 }
 
 function currentPrecip(precip) {
@@ -15,24 +22,12 @@ function currentPrecip(precip) {
 
 function currentHumid(humid) {
     const currentHumid = document.getElementById("currentHumid");
-    currentHumid.textContent = "Humidity: " + humid;
+    currentHumid.textContent = "Humidity: " + humid +"%";
 }
 
 function currentWind(windSpeed, windDirection) {
     const currentWind = document.getElementById("currentWind");
     currentWind.textContent = "Wind: " + Math.round(windSpeed) + "mph " + degToCompass(windDirection);
-}
-
-//Converts Kelvin to F
-function convertToF(temp) {
-    return (((temp-273.15)*1.8)+32).toPrecision(3)
-}
-
-//Converts 0-360 degress to cardinal direction
-function degToCompass(num) {
-    var val = Math.floor((num / 22.5) + 0.5);
-    var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-    return arr[(val % 16)];
 }
 
 function sunrise(time) {
@@ -72,7 +67,7 @@ function renderChartObject(day,date,temp,windSpeed,windDirection,icon) {
 
     title.textContent = day;
     dateMonth.textContent = date;
-    temperature.textContent = "Temp: " + convertToF(temp);
+    temperature.textContent = "Temp: " + (temp);
     wind.textContent = "Wind: " + Math.round(windSpeed) + "mph " + degToCompass(windDirection);
     symbol.src = icon;
 

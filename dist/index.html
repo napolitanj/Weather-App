@@ -12,23 +12,34 @@
                 <img class="currentIcon" id="currentIcon">
                 <div class="bannerTemp">
                     <p class="currentTemp" id="currentTemp"></p>
-                    <p>F/C</p>
+                    <div id="tempSwitch">
+                        <p class="fahrenheit">F</p>
+                        <label class="switch">
+                            <input type="checkbox" id="tempSwitch">
+                            <span class="slider"></span>
+                        </label>
+                        <p class="celcius">C</p>
+                    </div>
                 </div>
             </div>
             <div class="currentData">
-                <p id="currentPrecip"></p>
-                <p id="currentHumid"></p>
-                <p id="currentWind"></p>
-            </div>
-            <div class="sunAndMoon">
-                <p id="sunrise"></p>
-                <p id="sunset"></p>
+                <div>
+                    <p id="currentPrecip"></p>
+                    <p id="currentHumid"></p>
+                    <p id="currentWind"></p>
+                </div>
+                <div>
+                    <p id="sunrise"></p>
+                    <p id="sunset"></p>
+                </div>
             </div>
             <div class="location">
                 <p id="location"></p>
                 <p id="time">Time</p>
-                <input type="text" id="search">
-                <button id="searchButton">Go</button>
+                <div>
+                    <input type="text" id="search">
+                    <button id="searchButton">Go</button>
+                </div>
             </div>
         </div>
         <div class="weatherChart" id="weatherChart">
