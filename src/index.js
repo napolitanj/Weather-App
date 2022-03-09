@@ -10,6 +10,8 @@ searchButton.addEventListener("click", () => changeLocation());
 const tempSwitch = document.getElementById("tempSwitch")
 tempSwitch.addEventListener("change",() => changeUnit());
 
+const checkbox = document.getElementById("checkbox")
+
 //Updates current weather Icon
 function updateIcon() {
     weatherAPIData(weatherLocation).then(function(data){
@@ -19,39 +21,72 @@ function updateIcon() {
 }
 
 //Converts Kelvin to F
-function convertToF(temp) {
+function convertKToF(temp) {
     return (((temp-273.15)*1.8)+32).toPrecision(3)
 }
 
 //Converts Kelvin to C
-function convertToC(temp) {
+function convertKToC(temp) {
     return (temp-273.15).toPrecision(3)
+}
+
+//Converts C to F
+function convertCToF(temp) {
+    return (temp*(9/5)+32).toPrecision(3)
+}
+
+//Converts F to C
+function convertFToC(temp) {
+    return ((temp-32)*(5/9)).toPrecision(3)
+}
+
+//Modifies temperature in weekly forecast
+function changeWeeklyTemp(funct) {
+    const weeklyItems=document.querySelectorAll(".weeklyTemp")
+
+    weeklyItems.forEach((item) => {
+        let temp = Number(item.textContent.replace("Temp: ",""))
+        item.textContent= "Temp: " + funct(temp);
+    })
 }
 
 //Toggles between F and C
 function changeUnit() {
-    tempSwitch.checked=!tempSwitch.checked
-    console.log(tempSwitch.checked)
-    if(tempSwitch.checked === true){
-        updateTempC()
+    const celcius = document.getElementById("celcius")
+    const fahrenheit = document.getElementById("fahrenheit")
+    if(checkbox.checked === true){
+        changeWeeklyTemp(convertFToC)
+        checkbox.checked = false;
+        fahrenheit.style.color="#999999"
+        fahrenheit.style.opacity="0.5"
+        celcius.style.color="#F67280"
+        celcius.style.opacity="1"
     } else {
-        tempSwitch.checked=false;
-        updateTempF();
+        changeWeeklyTemp(convertCToF)
+        checkbox.checked=true;
+        fahrenheit.style.color="#F67280"
+        fahrenheit.style.opacity="1"
+        celcius.style.color="#999999"
+        celcius.style.opacity="0.5"
+    }
+    checkbox.checked=!checkbox.checked;
+    updateCurrentTemp()
+}
+
+//Checks current switch position for weekly temperature
+function checkSwitch(temp) {
+    if(checkbox.checked === true){
+        return convertKToC(temp)
+    } else {
+        return convertKToF(temp)
     }
 }
 
-//Updates current F temperature to the header
-function updateTempF() {
+//Updates current temperature in the header
+function updateCurrentTemp(){
     weatherAPIData(weatherLocation).then(function(data){
-        currentTemp(convertToF(data.current.temp))
-    })
-}
-
-//Updates current C temperature to the header
-function updateTempC() {
-    weatherAPIData(weatherLocation).then(function(data){
-        currentTemp(convertToC(data.current.temp))
-    })
+        currentTemp(checkSwitch(data.current.temp))
+    })    
 }
 
 //Updates current precipitation chance to the header
@@ -117,7 +152,7 @@ function updateChartDaily() {
             let day = convertDay(e.dt)
             let date = convertDate(e.dt);
             let icon = "http://openweathermap.org/img/wn/" + e.weather[0].icon+"@2x.png";
-            weatherChart.appendChild(renderChartObject(day,date,e.temp.day,e.wind_speed,e.wind_deg,icon))
+            weatherChart.appendChild(renderChartObject(day,date,checkSwitch(e.temp.day),e.wind_speed,e.wind_deg,icon))
         })
     })
 }
@@ -190,12 +225,8 @@ function clearChart() {
 
 function updateWeather() {
     updateIcon();
-    if(tempSwitch.checked === true){
-        updateTempC()
-    } else {
-        tempSwitch.checked=false;
-        updateTempF();
-    }
+    updateCurrentTemp();
+    changeUnit();
     updatePrecip();
     updateHumid();
     updateWind();

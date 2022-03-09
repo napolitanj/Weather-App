@@ -64,6 +64,7 @@ function renderChartObject(day,date,temp,windSpeed,windDirection,icon) {
     const symbol = document.createElement("img")
 
     container.classList.add("weatherItem")
+    temperature.classList.add("weeklyTemp")
 
     title.textContent = day;
     dateMonth.textContent = date;
