@@ -52,7 +52,9 @@ function time(currentTime) {
 
 function search() {
     const searchBar = document.getElementById("search")
-    return searchBar.value;
+    let value = searchBar.value
+    searchBar.value = "";
+    return value;
 }
 
 function renderChartObject(day,date,temp,windSpeed,windDirection,icon) {
