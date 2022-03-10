@@ -45,7 +45,7 @@ function changeWeeklyTemp(funct) {
     const weeklyItems=document.querySelectorAll(".weeklyTemp")
 
     weeklyItems.forEach((item) => {
-        let temp = Number(item.textContent.replace(/\D/g,""))
+        let temp = Number(item.textContent.replace(/[^0-9\.]+/g,""))
         item.textContent= "Temp: " + funct(temp);
     })
 }
