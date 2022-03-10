@@ -22,22 +22,22 @@ function updateIcon() {
 
 //Converts Kelvin to F
 function convertKToF(temp) {
-    return (((temp-273.15)*1.8)+32).toPrecision(3)
+    return (((temp-273.15)*1.8)+32).toPrecision(2) + " °F";
 }
 
 //Converts Kelvin to C
 function convertKToC(temp) {
-    return (temp-273.15).toPrecision(3)
+    return (temp-273.15).toPrecision(2) + " °C";
 }
 
 //Converts C to F
 function convertCToF(temp) {
-    return (temp*(9/5)+32).toPrecision(3)
+    return (temp*(9/5)+32).toPrecision(2) + " °F";
 }
 
 //Converts F to C
 function convertFToC(temp) {
-    return ((temp-32)*(5/9)).toPrecision(3)
+    return ((temp-32)*(5/9)).toPrecision(2) + " °C";
 }
 
 //Modifies temperature in weekly forecast
@@ -45,7 +45,7 @@ function changeWeeklyTemp(funct) {
     const weeklyItems=document.querySelectorAll(".weeklyTemp")
 
     weeklyItems.forEach((item) => {
-        let temp = Number(item.textContent.replace("Temp: ",""))
+        let temp = Number(item.textContent.replace(/\D/g,""))
         item.textContent= "Temp: " + funct(temp);
     })
 }
