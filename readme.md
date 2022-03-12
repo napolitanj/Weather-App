@@ -2,9 +2,34 @@
 Weather App
 -----------
 
+LIVE DEMO: https://napolitanj.github.io/Library/
+
 A simple weather app made according to the standards set by the project in The Odin Project.
 
 My goal with this project is to demonstrate proficiency with callbacks, API requests, and promises, as well as an understanding of asynchornous javascript.
+
+--------------------
+How to use this app:
+
+*If the application does not load, it is likely because the API key being used hit its maximum daily requests*
+
+The header displays current weather. The body displays a 7 day prediction.
+
+The default location will be Chicago.
+
+Enter a new location in the search bar and press "Go" To change the location.
+
+Click the toggle below the current temperature to change between Fahrenheit and Celcius.
+
+---------------
+Version History
+
+
+-----------
+Version 1.0
+-----------
+
+The application is live! See how to use this application above. Will add styling later.
 
 -----------
 Version 0.2
