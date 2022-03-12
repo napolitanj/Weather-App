@@ -2,7 +2,7 @@
 Weather App
 -----------
 
-LIVE DEMO: https://napolitanj.github.io/Weather-app/
+LIVE DEMO: https://napolitanj.github.io/Weather-App/
 
 A simple weather app made according to the standards set by the project in The Odin Project.
 

@@ -136,7 +136,7 @@ input:checked + .slider:before {
 
 .weatherChart {
     background-color:#355C7D;
-    height:auto;
+    height:100%;
     padding:30px;
 
     display:flex;
