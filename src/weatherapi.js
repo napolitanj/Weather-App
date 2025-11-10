@@ -1,47 +1,33 @@
-// === weatherapi.js ===
+const API_KEY = "321fced271988d7f1f4b1dcd0fd26cf1"; 
 
-const API_KEY = "321fced271988d7f1f4b1dcd0fd26cf1";
-
-// --- Updated Endpoints ---
-// The Geo API is now separate, and One Call v3.0 is the current forecast endpoint.
-
-function requestGeo(city) {
-  return `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`;
+// Build the API request for a city
+function requestWeather(city) {
+  return `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
 }
 
-function requestOneCall(lat, lon, part = "minutely,alerts") {
-  return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=${part}&appid=${API_KEY}`;
-}
-
-// --- Core Functions ---
-
-// Fetch coordinates for a city name
-async function getCoords(city) {
-  try {
-    const res = await fetch(requestGeo(city));
-    if (!res.ok) throw new Error("Bad geo response");
-    const [data] = await res.json();
-    if (!data) throw new Error("City not found");
-    return { name: data.name, lat: data.lat, lon: data.lon };
-  } catch (err) {
-    console.error("Geo fetch error:", err);
-  }
-}
-
-// Fetch weather data for the coordinates
+// Fetch current weather data for a given city
 async function weatherAPIData(city) {
   try {
-    const location = await getCoords(city);
-    if (!location) throw new Error("No location data");
-    const res = await fetch(requestOneCall(location.lat, location.lon), {
-      mode: "cors",
-    });
-    if (!res.ok) throw new Error("Weather API error");
+    const res = await fetch(requestWeather(city), { mode: "cors" });
+    if (!res.ok) throw new Error(`API error: ${res.status}`);
     const data = await res.json();
-    data.locationName = location.name;
-    return data;
+
+    const simplified = {
+      locationName: data.name,
+      current: {
+        temp: data.main.temp,
+        humidity: data.main.humidity,
+        wind_speed: data.wind.speed,
+        wind_deg: data.wind.deg,
+        sunrise: data.sys.sunrise,
+        sunset: data.sys.sunset,
+        weather: data.weather,
+      },
+    };
+
+    return simplified;
   } catch (err) {
-    console.error("Weather data error:", err);
+    console.error("Weather fetch failed:", err);
   }
 }
 
