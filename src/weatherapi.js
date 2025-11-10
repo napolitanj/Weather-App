@@ -1,40 +1,48 @@
-//String used to fetch API data for a city
-function requestAPICity(city) {
-    return `https://api.openweathermap.org/data/2.5/weather?q=` + city + `&appid=0102347143dfbb9da8fa1a6c7f338297`;
+// === weatherapi.js ===
+
+const API_KEY = "321fced271988d7f1f4b1dcd0fd26cf1";
+
+// --- Updated Endpoints ---
+// The Geo API is now separate, and One Call v3.0 is the current forecast endpoint.
+
+function requestGeo(city) {
+  return `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`;
 }
 
-//String used to fetch API data using the coordinates from an object
-function requestAPICoords(coordinates, part) {
-    return 'https://api.openweathermap.org/data/2.5/onecall?lat=' + coordinates.lat + `&lon=` + coordinates.lon + `&exclude=` + part + `&appid=0102347143dfbb9da8fa1a6c7f338297`;
+function requestOneCall(lat, lon, part = "minutely,alerts") {
+  return `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=${part}&appid=${API_KEY}`;
 }
 
-//Creates a coordinates object by fetching the API data for long/lat for a city by name
+// --- Core Functions ---
+
+// Fetch coordinates for a city name
 async function getCoords(city) {
-    try {
-        const location = await fetch(requestAPICity(city))
-        const locationData = await location.json();
-        const cityCoordinates= {
-            name:locationData.name,
-            lon:locationData.coord.lon,
-            lat:locationData.coord.lat
-        }
-        return cityCoordinates;
-    } catch {
-        console.log("city error")
-    }
+  try {
+    const res = await fetch(requestGeo(city));
+    if (!res.ok) throw new Error("Bad geo response");
+    const [data] = await res.json();
+    if (!data) throw new Error("City not found");
+    return { name: data.name, lat: data.lat, lon: data.lon };
+  } catch (err) {
+    console.error("Geo fetch error:", err);
+  }
 }
 
-//Creates the weather data object to be used in the application
+// Fetch weather data for the coordinates
 async function weatherAPIData(city) {
-    try {
-        const location = await getCoords(city)
-        const response = await fetch(requestAPICoords(location,"minutely,alerts"), {mode: 'cors'})
-        const data = await response.json()
-        data.locationName = location.name;
-        return data;
-    } catch {
-        console.log("error");
-    }
+  try {
+    const location = await getCoords(city);
+    if (!location) throw new Error("No location data");
+    const res = await fetch(requestOneCall(location.lat, location.lon), {
+      mode: "cors",
+    });
+    if (!res.ok) throw new Error("Weather API error");
+    const data = await res.json();
+    data.locationName = location.name;
+    return data;
+  } catch (err) {
+    console.error("Weather data error:", err);
+  }
 }
 
 export default weatherAPIData;
